@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
     <style>
         * {
             box-sizing: border-box;
@@ -76,16 +76,19 @@ b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(func
 
         function show_result(n) {
                 return `Сніжинок Вами розтоплено: ${n}`;
-        }
-
-        document.getElementById('text').textContent = decodeURI(window.location.search.substring(1));
+        }   
         if (decodeURI(window.location.search)=='?edit') {
+            setTimeout(()=>{
             window.open(
-                window.location.href.replace(
-                    '?edit',
-                    '?' + encodeURI( prompt('Введіть текст привітання', 'З Новим Роком!') )
-                )
-            );
+                    window.location.href.replace(
+                        '?edit',
+                        '?' + encodeURI( prompt('Введіть текст привітання', 'З Новим Роком!') )
+                    )
+                );
+            },1000);
+        }
+        else {
+            document.title = document.getElementById('text').textContent = decodeURI(window.location.search.substring(1));
         }
     </script>
 </body>
