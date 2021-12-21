@@ -7,19 +7,38 @@
     <title>Document</title>
     <style>
         * {
-			box-sizing: border-box;
-		}
-		html {
-			height: 100%;
-			background-image: url(bg.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-		}
+            box-sizing: border-box;
+        }
+        html {
+            height: 100%;
+            background-image: url(bg.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: monospace;
+        }
+        body {
+            overflow-y: hidden;
+        }
+        .caption, .logo {
+            position: absolute;
+            top: 10px;
+        }
+        .caption {
+            right: 10px;
+            color: white;
+            text-shadow: black 0 0 10px;
+            font-size: 40px;
+            text-align:right;
+        }
     </style>
 </head>
 <body>
-    
+    <div class="caption">
+        <span id="text"></span>
+        <br>
+        <span id="result">Ви не розтопили жодної сніжинки</span>
+    </div>
     <script
 src="https://code.jquery.com/jquery-3.6.0.min.js"
 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -33,6 +52,34 @@ function p(){for(c=0;c<j.length;c+=1)j[c].update();q=setTimeout(function(){p()},
 [],f=b(d.collection),k=d.collectionHeight,c=0;c<f.length;c++){var g=f[c].getBoundingClientRect(),h=document.createElement("canvas"),r=[];if(g.top-k>0){document.body.appendChild(h);h.style.position="absolute";h.height=k;h.width=g.width;h.style.left=g.left;h.style.top=g.top-k;for(var o=0;o<g.width;o++)r[o]=[];m.push({element:h,x:g.left,y:g.top-k,width:g.width,height:k,colData:r})}}else d.collection=false;b(a).get(0).tagName===b(document).get(0).tagName&&(i=25);b(window).bind("resize",function(){n=b(a).height();
 l=b(a).width()});for(c=0;c<d.flakeCount;c+=1)f=j.length,j.push(new s(e(i,l-i),e(0,n),e(d.minSize*100,d.maxSize*100)/100,e(d.minSpeed,d.maxSpeed),f));d.round&&b(".snowfall-flakes").css({"-moz-border-radius":d.maxSize,"-webkit-border-radius":d.maxSize,"border-radius":d.maxSize});d.shadow&&b(".snowfall-flakes").css({"-moz-box-shadow":"1px 1px 1px #555","-webkit-box-shadow":"1px 1px 1px #555","box-shadow":"1px 1px 1px #555"});p();this.clear=function(){b(a).children(".snowfall-flakes").remove();j=[];clearTimeout(q)}};
 b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(function(){new b.snowfall(this,a)});else if(typeof a=="string")return this.each(function(){var a=b(this).data("snowfall");a&&a.clear()})}})(jQuery);
+    </script>
+    <script type="text/javascript">
+        $(document).snowfall({shadow : true, round : true, minSize: 15, maxSize:25});
+        $( window ).resize(function() {
+            $(document).snowfall('clear'); 
+            $(document).snowfall({shadow : true, round : true, minSize: 15, maxSize:25});
+        });
+
+        let n = localStorage.getItem('result') || 0;        
+        const result_el = document.getElementById('result');
+        result_el.textContent = show_result(n);
+
+        document.addEventListener('mousedown',function(e) {
+            if (e.target.classList.contains('snowfall-flakes') && !e.target.classList.contains('snowfall-flakes-hide')) {
+                e.target.classList.add('snowfall-flakes-hide');
+                $(e.target).hide(500);
+                localStorage.setItem('result',++n);
+                result_el.textContent = show_result(n);
+                if (isNaN(n)) n = 0;
+            }
+        });
+
+        function show_result(n) {
+                return `Сніжинок Вами розтоплено: ${n}`;
+        }
+
+        document.getElementById('text').textContent = decodeURI(window.location.hash.substring(1))
+
     </script>
 </body>
 </html>
