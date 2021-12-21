@@ -78,8 +78,15 @@ b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(func
                 return `Сніжинок Вами розтоплено: ${n}`;
         }
 
-        document.getElementById('text').textContent = decodeURI(window.location.hash.substring(1))
-
+        document.getElementById('text').textContent = decodeURI(window.location.search.substring(1));
+        if (decodeURI(window.location.search)=='?edit') {
+            window.open(
+                window.location.href.replace(
+                    '?edit',
+                    '?' + encodeURI( prompt('Введіть текст привітання', 'З Новим Роком!') )
+                )
+            );
+        }
     </script>
 </body>
 </html>
