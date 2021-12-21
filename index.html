@@ -82,7 +82,7 @@ b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(func
             window.open(
                     window.location.href.replace(
                         '?edit',
-                        '?' + encodeURI( prompt('Введіть текст привітання', 'З Новим Роком!') )
+                        '?' + encodeURI( prompt('Введіть текст привітання\r\n(потрібно дозволити спливаючі вікна)', 'З Новим Роком!') )
                     )
                 );
             },1000);
