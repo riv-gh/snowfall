@@ -77,10 +77,10 @@ b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(func
         function show_result(n) {
                 return `Сніжинок Вами розтоплено: ${n}`;
         }   
-        if (decodeURI(window.location.search)=='?edit') {
+        if (['?edit', '?null'].indexOf( decodeURI(window.location.search) )!='-1') {
             setTimeout(()=>{
                 window.location.href = window.location.href.replace(
-                        '?edit',
+                        window.location.search,
                         '?' + encodeURI( prompt('Введіть текст привітання\r\n(потрібно поділитися посиланням після вводу)', 'З Новим Роком!') )
                     )
             },1000);
