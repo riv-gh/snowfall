@@ -79,12 +79,10 @@ b.fn.snowfall=function(a){if(typeof a=="object"||a==void 0)return this.each(func
         }   
         if (decodeURI(window.location.search)=='?edit') {
             setTimeout(()=>{
-            window.open(
-                    window.location.href.replace(
+                window.location.href = window.location.href.replace(
                         '?edit',
-                        '?' + encodeURI( prompt('Введіть текст привітання\r\n(потрібно дозволити спливаючі вікна)', 'З Новим Роком!') )
+                        '?' + encodeURI( prompt('Введіть текст привітання\r\n(потрібно поділитися посиланням після вводу)', 'З Новим Роком!') )
                     )
-                );
             },1000);
         }
         else {
